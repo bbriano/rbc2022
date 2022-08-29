@@ -1,0 +1,14 @@
+#!/bin/sh
+
+for f in cdata/*
+do
+	awk '
+	{
+		R+=$1;G+=$2;B+=$3
+	}
+	END {
+		printf("\t{ %3d, %3d, %3d }, /* %s */\n",
+			R/NR, G/NR, B/NR, substr(FILENAME, 7))
+	}
+	' $f
+done
